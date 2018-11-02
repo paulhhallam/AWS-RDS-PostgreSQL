@@ -7,12 +7,16 @@ provider "aws" {
   version    = "~> 1.30"
 }
 
+# Get the default VPC id
+data "aws_vpc" "default" {
+  default = true
+}
+
 resource "aws_security_group" "RDSdbs1" {
   name        = "RDSdbs1"
   description = "RDS database servers (terraform-managed)"
-  vpc_id      = "${var.rds_vpc_id}"
-
-  # Only postgres in
+  vpc_id = "${data.aws_vpc.default.id}"
+# Only postgres in
   ingress {
     from_port = 0
     to_port = 0
@@ -20,7 +24,7 @@ resource "aws_security_group" "RDSdbs1" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Allow all outbound traffic.
+# Allow all outbound traffic.
   egress {
     from_port = 0
     to_port = 0
@@ -32,10 +36,9 @@ resource "aws_security_group" "RDSdbs1" {
 resource "aws_db_instance" "RDSpgdb1" {
   allocated_storage         = 5 
   backup_retention_period   = 0 
-  db_subnet_group_name      = "${var.rds_public_subnet_group}"
   instance_class            = "db.t2.small"
   password                  = "Password1"
-  username                  = "User"
+  username                  = "DBUser"
   final_snapshot_identifier = "DEMODB2"
   multi_az                  = false
   publicly_accessible       = true
@@ -46,9 +49,8 @@ resource "aws_db_instance" "RDSpgdb1" {
   engine_version           = "9.5.4"
   identifier               = "pgdb1"
   name                     = "pgdb1"
-#  storage_type             = "gp2"
-
-#  password                 = "${trimspace(file("${path.module}/secrets/mydb1-password.txt"))}"
+# storage_type             = "gp2"
+# password                 = "${trimspace(file("${path.module}/secrets/mydb1-password.txt"))}"
   port                     = 5432
 # storage_encrypted        = true # you should always do this
 

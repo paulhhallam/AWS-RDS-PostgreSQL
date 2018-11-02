@@ -10,15 +10,11 @@ variable "amis" {
     "us-west-2" = "ami-4b32be2b"
   } 
 }
-variable "rds_vpc_id" {
-  default = "vpc-5ac39b32"
-  description = "Our default RDS virtual private cloud (rds_vpc)."
-}
 
-variable "rds_public_subnets" {
-  default = "subnet-92e3acfa,subnet-a4be3ade,subnet-a806e9e4"
-  description = "The public subnets of our RDS VPC rds-vpc."
-}
+#variable "rds_public_subnets" {
+#  default = "subnet-92e3acfa,subnet-a4be3ade,subnet-a806e9e4"
+#  description = "The public subnets of our RDS VPC rds-vpc."
+#}
 
 variable "rds_public_subnet_group" {
   default = "default"
