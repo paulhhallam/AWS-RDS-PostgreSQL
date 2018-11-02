@@ -11,11 +11,6 @@ variable "amis" {
   } 
 }
 
-#variable "rds_public_subnets" {
-#  default = "subnet-92e3acfa,subnet-a4be3ade,subnet-a806e9e4"
-#  description = "The public subnets of our RDS VPC rds-vpc."
-#}
-
 variable "rds_public_subnet_group" {
   default = "default"
   description = "Apparently the group name, according to the RDS launch wizard."
