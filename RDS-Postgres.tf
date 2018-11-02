@@ -34,9 +34,9 @@ resource "aws_db_instance" "RDSpgdb1" {
   backup_retention_period   = 0 
   db_subnet_group_name      = "${var.rds_public_subnet_group}"
   instance_class            = "db.t2.small"
-  password                  = "Everton01"
-  username                  = "phh"
-  final_snapshot_identifier = "demodb2"
+  password                  = "Password1"
+  username                  = "User"
+  final_snapshot_identifier = "DEMODB2"
   multi_az                  = false
   publicly_accessible       = true
 
